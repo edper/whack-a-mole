@@ -7,42 +7,45 @@ let result = 0
 let currentTime = timeLeft.textContent
 
 function randomSquare() {
-  square.forEach(className => {
-    className.classList.remove('mole')
+  square.forEach(classname=> {
+    classname.classList.remove('mole')
+    classname.classList.remove('moleWhack')
   })
   let randomPosition = square[Math.floor(Math.random() * 9)]
   randomPosition.classList.add('mole')
-
-  //assign the id of the randomPosition to hitPosition for us to use later
   hitPosition = randomPosition.id
+
 }
 
-square.forEach(id => {
-  id.addEventListener('mouseup', () => {
-    if(id.id === hitPosition){
-      result = result + 1
-      score.textContent = result
-    }
+square.forEach(id=>{
+  id.addEventListener('mouseup', ()=>{
+     if (id.id === hitPosition) {
+        let hitId = square[hitPosition-1]
+        let audio = new Audio('woodHit.mp3')
+        hitId.classList.remove('mole')
+        hitId.classList.add('moleWhack')
+        audio.play()
+        result = result + 1
+        score.textContent = result
+     }
   })
 })
 
+moveMole()
 
 function moveMole() {
   let timerId = null
-  timerId = setInterval(randomSquare, 500)
+  timerId = setInterval(randomSquare, 1000)
 }
-
-moveMole()
-
 
 function countDown() {
   currentTime--
   timeLeft.textContent = currentTime
-
-  if(currentTime === 0 ) {
+  if (currentTime==0) {
     clearInterval(timerId)
-    alert('GAME OVER! Your final score is' + result)
+    alert("GAME OVER! Your final score is " + result)
   }
+
 }
 
 let timerId = setInterval(countDown, 1000)

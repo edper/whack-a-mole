@@ -19,3 +19,8 @@
   background-image: url('mole.jpg');
   background-size: cover;
 }
+
+.moleWhack {
+  background-image: url('moleWhack.jpg');
+  background-size: cover;
+}
